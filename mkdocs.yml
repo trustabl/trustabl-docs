@@ -11,6 +11,9 @@ edit_uri: ""
 
 theme:
   name: material
+  # Pulled from the engine repo (assets/logo_white.png) by scripts/gather.py.
+  # White mark for the teal header; run gather before building or it 404s.
+  logo: assets/logo_white.png
   features:
     - navigation.sections
     - navigation.top

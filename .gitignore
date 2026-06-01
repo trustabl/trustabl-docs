@@ -7,6 +7,7 @@ _src/
 docs/how-it-works/architecture.md
 docs/coverage.md
 docs/rules/
+docs/assets/
 
 # Python / tooling
 .cache/
