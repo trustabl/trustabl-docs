@@ -54,7 +54,13 @@ jobs:
       - name: Build site
         run: mkdocs build
 
+      # enablement: true turns Pages on automatically using this workflow's
+      # pages:write token, so no manual "Settings -> Pages" click is needed. If
+      # the org blocks Actions from enabling Pages, enable it once by hand
+      # (Settings -> Pages -> Source: GitHub Actions) and this becomes a no-op.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
