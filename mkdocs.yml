@@ -42,6 +42,12 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+# Fingerprint extra_css/js with a content-hash query string so edits bust the
+# browser/CDN cache automatically (MkDocs only does this for the theme's own
+# assets, not user ones). See hooks/cache_bust.py.
+hooks:
+  - hooks/cache_bust.py
+
 plugins:
   - search
 
