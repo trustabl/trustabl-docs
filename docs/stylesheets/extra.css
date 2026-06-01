@@ -1,11 +1,14 @@
 /* Header logo / title spacing.
  *
- * The stock Material spacing leaves a wide gap between a compact square logo
- * mark and the site title. Pull the title in so the wordmark reads as one unit
- * with the logo. */
+ * Material's defaults leave ~1.6rem between the logo mark and the title:
+ *   logo  padding-right .4rem + margin-right .2rem = .6rem
+ *   title margin-left 1rem                          = 1.0rem
+ * Collapse that by ~60% (to ~0.65rem) so the wordmark reads as one unit with
+ * the mark. !important so the override beats the bundled — and aggressively
+ * browser-cached — theme stylesheet. */
 .md-header__button.md-logo {
-  margin-right: 0;
-  padding-right: 0.3rem;
+  margin-right: 0 !important;
+  padding-right: 0.2rem !important;
 }
 
 .md-header__button.md-logo img,
@@ -15,5 +18,5 @@
 }
 
 .md-header__title {
-  margin-left: 0;
+  margin-left: 0.45rem !important;
 }
