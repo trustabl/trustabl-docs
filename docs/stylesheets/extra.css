@@ -1,0 +1,19 @@
+/* Header logo / title spacing.
+ *
+ * The stock Material spacing leaves a wide gap between a compact square logo
+ * mark and the site title. Pull the title in so the wordmark reads as one unit
+ * with the logo. */
+.md-header__button.md-logo {
+  margin-right: 0;
+  padding-right: 0.3rem;
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 1.6rem;
+  width: auto;
+}
+
+.md-header__title {
+  margin-left: 0;
+}
