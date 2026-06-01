@@ -61,7 +61,14 @@ markdown_extensions:
       permalink: true
   - pymdownx.highlight:
       anchor_linenums: true
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      # Render ```mermaid blocks (e.g. the ARCHITECTURE.md diagrams) as real
+      # diagrams. Material auto-loads mermaid.js when this fence is present and
+      # themes the diagrams to match light/dark mode.
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.inlinehilite
   - pymdownx.tabbed:
       alternate_style: true
