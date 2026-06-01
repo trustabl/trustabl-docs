@@ -1,0 +1,70 @@
+name: docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One concurrent deploy; let an in-flight run finish rather than cancelling it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout docs repo
+        uses: actions/checkout@v4
+
+      # Pull the source repos in so gather.py can copy their canonical markdown.
+      # These are public repos, so the default GITHUB_TOKEN reads them with no
+      # extra secret. If a source repo is ever made private, add a PAT here.
+      - name: Checkout engine (trustabl)
+        uses: actions/checkout@v4
+        with:
+          repository: trustabl/trustabl
+          path: _src/trustabl
+      - name: Checkout rulebook (trustabl-rulebook)
+        uses: actions/checkout@v4
+        with:
+          repository: trustabl/trustabl-rulebook
+          path: _src/trustabl-rulebook
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install MkDocs
+        run: pip install -r requirements.txt
+
+      - name: Gather docs from source repos
+        run: python scripts/gather.py
+
+      # Not --strict: the pulled engine doc (ARCHITECTURE.md) contains
+      # repo-relative links (to source files, testdata, etc.) that don't resolve
+      # in the site and would fail a strict build. They surface as warnings.
+      # Tighten to --strict once the pulled content's internal links are cleaned.
+      - name: Build site
+        run: mkdocs build
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

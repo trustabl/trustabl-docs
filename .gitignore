@@ -1,0 +1,15 @@
+# MkDocs build output
+site/
+
+# Content pulled from sibling repos by scripts/gather.py — never committed,
+# always regenerated at build time so the source repos stay authoritative.
+_src/
+docs/how-it-works/architecture.md
+docs/coverage.md
+docs/rules/
+
+# Python / tooling
+.cache/
+__pycache__/
+.venv/
+venv/

@@ -1,0 +1,3 @@
+# Normalize all text to LF — the site builds on Linux CI and the Python/YAML
+# tooling is LF-sensitive. Keeps the repo free of CRLF churn on Windows clones.
+* text=auto eol=lf

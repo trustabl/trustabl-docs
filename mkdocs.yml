@@ -1,0 +1,75 @@
+site_name: Trustabl
+site_description: Static analyzer for agent reliability — discovers the agent/tool inventory in a repo and reports reliability and safety weaknesses.
+site_url: https://trustabl.github.io/trustabl-docs/
+repo_url: https://github.com/trustabl/trustabl
+repo_name: trustabl/trustabl
+edit_uri: ""
+
+# Most "How it works", "Coverage", and "Rules" pages are pulled in from the
+# engine and rulebook repos at build time by scripts/gather.py. Run that script
+# before `mkdocs serve` locally, or those nav entries will 404.
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.instant
+    - navigation.tracking
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Pages pulled from other repos aren't all enumerated in nav; don't fail the
+# build over that, but do flag genuinely broken internal links.
+validation:
+  nav:
+    omitted_files: ignore
+  links:
+    absolute_links: ignore
+    unrecognized_links: warn
+
+nav:
+  - Home: index.md
+  - Use cases: use-cases.md
+  - Installation: installation.md
+  - Quick start: quick-start.md
+  - How it works:
+      - Architecture: how-it-works/architecture.md
+  - Coverage: coverage.md
+  - Output formats: output-formats.md
+  - CLI reference: cli-reference.md
+  - Rules:
+      - Rule index: rules/index.md
