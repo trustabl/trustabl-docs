@@ -89,9 +89,9 @@ def main() -> int:
 
     # Brand assets — binary, copied verbatim (never run through copy_file, which
     # treats content as text). Canonical home is the engine repo.
-    #   logo_white.png — white mark for the teal header
-    #   logo.png       — colored mark for the favicon (visible on light tabs)
-    for asset in ("logo_white.png", "logo.png"):
+    #   logo_white.png    — white mark for the teal header
+    #   logo_favicon.png  — 48x48 colored mark for the browser-tab favicon
+    for asset in ("logo_white.png", "logo_favicon.png"):
         src = engine / "assets" / asset
         if src.is_file():
             dst = DOCS / "assets" / asset

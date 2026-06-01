@@ -15,7 +15,7 @@ theme:
   # or these 404). White mark for the teal header; colored mark for the favicon
   # so it stays visible on a light browser tab.
   logo: assets/logo_white.png
-  favicon: assets/logo.png
+  favicon: assets/logo_favicon.png
   features:
     - navigation.sections
     - navigation.top
