@@ -88,13 +88,16 @@ def main() -> int:
     copy_file(engine / "COVERAGE.md", DOCS / "coverage.md", title="Coverage")
 
     # Brand assets — binary, copied verbatim (never run through copy_file, which
-    # treats content as text). The logo's canonical home is the engine repo.
-    logo = engine / "assets" / "logo_white.png"
-    if logo.is_file():
-        dst = DOCS / "assets" / "logo_white.png"
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(logo, dst)
-        print(f"  + {dst.relative_to(ROOT)}  <-  {logo}")
+    # treats content as text). Canonical home is the engine repo.
+    #   logo_white.png — white mark for the teal header
+    #   logo.png       — colored mark for the favicon (visible on light tabs)
+    for asset in ("logo_white.png", "logo.png"):
+        src = engine / "assets" / asset
+        if src.is_file():
+            dst = DOCS / "assets" / asset
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dst)
+            print(f"  + {dst.relative_to(ROOT)}  <-  {src}")
 
     # Rulebook: master rule index, per-SDK indexes, and per-rule rationale.
     # The master index links to <sdk>/POLICY_INDEX.md relative to itself, so the
