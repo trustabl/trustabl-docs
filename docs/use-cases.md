@@ -3,8 +3,9 @@
 Trustabl is a **read-only** static analyzer: it inspects agent code without
 running it and without writing anything into the repo (remote targets are
 shallow-cloned to a temp dir and removed on exit). Every scenario below is built
-on the shipped feature set — SDK discovery, the four-scope rule engine, the
-deterministic report, and the JSON / SARIF outputs.
+on the shipped feature set — discovery across nine agent SDKs, the five-scope
+rule engine (tool, agent, subagent, skill, repo), the deterministic report, the
+JSON / SARIF outputs, and the opt-in dependency vulnerability scan.
 
 ## Gate agent code in CI
 
@@ -41,6 +42,48 @@ repository's **Security → Code scanning** tab.
 
 Findings carry stable fingerprints, so Code Scanning deduplicates the same issue
 across runs instead of re-opening it on every push.
+
+## Self-audit while the agent writes code
+
+Shift left of CI entirely: run Trustabl as a local stdio MCP server so an MCP
+client (Claude Code, Cursor, Claude Desktop) can scan code an agent just wrote
+and read the findings back before anything is committed.
+
+```sh
+# Register the bundled scan tool with Claude Code
+claude mcp add trustabl -- trustabl mcp
+```
+
+It exposes the same scan as `trustabl scan` — same findings, same JSON shape —
+as an MCP `scan` tool, and opens no network port. The Claude Code plugin under
+`.claude-plugin/` wires this into a scan-and-fix loop that triggers right after
+agent, tool, subagent, or MCP-server code is written.
+
+## Catch vulnerable dependencies and export an SBOM
+
+Beyond the agent-specific rules, Trustabl can audit the repo's supply chain. The
+dependency scan is deterministic and offline by default; the CVE match is
+explicitly opt-in and online.
+
+```sh
+# Export a CycloneDX SBOM of declared deps (pure inventory, no network)
+trustabl scan . --bom-out sbom.json
+
+# Match pinned deps against the OSV database and FAIL on known CVEs
+trustabl scan . --vuln-scan
+
+# One pass: CycloneDX BOM + VEX (vulnerabilities[]) in a single artifact
+trustabl scan . --vuln-scan --bom-out bom.json
+```
+
+`--bom-out` writes a CycloneDX 1.5 BOM of the declared direct dependencies
+across every supported language (pip / npm / Go / Composer / NuGet / Cargo).
+`--vuln-scan` matches the repo's concretely-pinned dependencies against a pinned
+OSV snapshot and reports each affected package as a finding carrying the advisory
+ID (CVE / GHSA / PYSEC), a CVSS-derived severity, and the first fixed version —
+so a vulnerable dependency fails the scan through the normal severity gate and
+exit codes. The OSV snapshot is fetched once and cached (`trustabl vulndb pull`
+pre-warms it), so repeated scans are fast and offline-capable.
 
 ## Run a pre-release safety audit
 
