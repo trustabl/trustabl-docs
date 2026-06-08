@@ -36,7 +36,7 @@ Trustabl is built to gate CI. The process exit code encodes the outcome:
 | Code | Meaning |
 |------|---------|
 | `0`  | No findings at or above **medium** severity. |
-| `1`  | At least one finding ≥ medium (or **any** finding under `--strict`). |
+| `1`  | At least one finding ≥ medium (or any finding of **low** severity or higher under `--strict`; info/META signals never fail the build). |
 | `2`  | Scanner / I/O error, or no usable rules were available. |
 
 ## Common variations
@@ -53,6 +53,12 @@ trustabl scan ./repo --strict
 
 # Only run one SDK's detectors
 trustabl scan ./repo --detectors claude_sdk
+
+# Also check dependencies for known CVEs (opt-in, uses the OSV database)
+trustabl scan ./repo --vuln-scan
+
+# Export a CycloneDX SBOM of declared dependencies (pure inventory)
+trustabl scan ./repo --bom-out sbom.json
 ```
 
 See the [CLI reference](cli-reference.md) for every flag, and

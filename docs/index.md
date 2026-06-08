@@ -1,13 +1,15 @@
 # Trustabl
 
 **Trustabl is a static analyzer for agent reliability.** It scans a repository
-that builds AI agents — using the Claude Agent SDK, the OpenAI Agents SDK, or
-Google ADK — discovers every agent, tool, guardrail, and configuration in the
-code, and reports the reliability and safety weaknesses it finds.
+that builds AI agents — across the Claude Agent SDK, OpenAI Agents SDK, Google
+ADK, LangChain / LangGraph, CrewAI, AutoGen, Pydantic AI, the Vercel AI SDK, and
+MCP servers — discovers every agent, tool, subagent, skill, guardrail, and MCP
+server in the code, and reports the reliability and safety weaknesses it finds.
 
 It runs as a single binary, reads your repo without writing anything into it,
 and produces a deterministic report you can read by eye, pipe as JSON, or upload
-to GitHub Code Scanning as SARIF.
+to GitHub Code Scanning as SARIF. It runs as a CLI or as a local stdio MCP
+server, so an agent can self-audit code it just wrote before it ever reaches CI.
 
 ## The problem it addresses
 
@@ -29,11 +31,26 @@ Identical inputs always produce an identical report. See
 
 ## What it covers
 
-- **Claude Agent SDK** — Python and TypeScript
+Nine agent SDKs, across seven languages:
+
+- **Claude Agent SDK** — Python and TypeScript, plus the Claude Code surfaces:
+  subagents (`.claude/agents/*.md`), skills (`SKILL.md`), slash commands,
+  plugin manifests, and `.claude/settings.json`
 - **OpenAI Agents SDK** — Python and TypeScript
 - **Google ADK** — Python and TypeScript
-- **MCP** tool registrations and config files
-- **Shell-invocation** risk surface (`subprocess` / `os.system` / `os.popen`)
+- **LangChain / LangGraph** — Python and TypeScript
+- **CrewAI** — Python
+- **AutoGen / AG2** — Python
+- **Pydantic AI** — Python
+- **Vercel AI SDK** — TypeScript / JavaScript
+- **MCP** tool registrations and config — Python, TypeScript, Go, C#/.NET, PHP,
+  and Rust (the cross-language wedge)
+
+It also flags the **shell-invocation** risk surface (`subprocess` / `os.system`
+/ `os.popen`) and, opt-in, scans declared dependencies against the
+[OSV](https://osv.dev) database for known CVEs. Detection rules ship in the
+separate [`trustabl-rules`](https://github.com/trustabl/trustabl-rules)
+repository — currently **183 rules** resolved at scan time.
 
 The full SDK-by-language matrix is on the [Coverage](coverage.md) page.
 

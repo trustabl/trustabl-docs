@@ -58,3 +58,11 @@ trustabl rules pull
 
 A scan with no usable rules (none cached and none fetchable) exits with code `2`
 rather than reporting a misleadingly clean result.
+
+The opt-in `--vuln-scan` dependency check keeps a separate cache: it fetches a
+pinned [OSV](https://osv.dev) snapshot on first use and reuses it (offline-capable)
+on later scans. Pre-warm it where you have connectivity with:
+
+```sh
+trustabl vulndb pull
+```

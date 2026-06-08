@@ -104,10 +104,12 @@ def main() -> int:
     # per-SDK files are placed under rules/<sdk>/ to keep those links resolving.
     copy_file(rulebook / "POLICY_INDEX.md", DOCS / "rules" / "index.md",
               title="Rule index")
-    for sdk in ("claude_sdk", "openai_sdk", "google_adk"):
-        sdk_index = rulebook / sdk / "POLICY_INDEX.md"
-        if sdk_index.is_file():
-            copy_file(sdk_index, DOCS / "rules" / sdk / "POLICY_INDEX.md")
+    # Discover the per-SDK indexes instead of hard-coding the SDK list: every
+    # <sdk>/POLICY_INDEX.md the rulebook ships is mirrored, so a newly added SDK
+    # pack is picked up automatically rather than 404-ing from the master index.
+    for sdk_index in sorted(rulebook.glob("*/POLICY_INDEX.md")):
+        sdk = sdk_index.parent.name
+        copy_file(sdk_index, DOCS / "rules" / sdk / "POLICY_INDEX.md")
     policy_dir = rulebook / "docs" / "Policy"
     if policy_dir.is_dir():
         count = copy_tree(policy_dir, DOCS / "rules" / "rationale")
