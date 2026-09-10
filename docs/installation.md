@@ -31,7 +31,7 @@ docker run --rm -v "$PWD:/repo" ghcr.io/trustabl/trustabl:latest scan /repo
 ## Direct download
 
 Download the archive for your OS/arch from the
-[GitHub Releases page](https://github.com/trustabl/trustabl/releases), extract
+[GitHub Releases page](https://github.com/trustabl/agent-reliability-analyzer/releases), extract
 it, and put the `trustabl` binary on your `PATH`. Each archive also bundles
 `LICENSE`, `README.md`, `COVERAGE.md`, and `CHANGELOG.md`. A `checksums.txt`
 (SHA-256) and build-provenance attestation are published alongside the archives.
@@ -47,7 +47,7 @@ This prints the version, commit, and build date baked into the binary.
 ## First run and the rule cache
 
 On its first scan, Trustabl resolves the detection rule packs from the
-[`trustabl-rules`](https://github.com/trustabl/trustabl-rules) repository and
+[`agent-reliability-rules`](https://github.com/trustabl/agent-reliability-rules) repository and
 caches them under your OS cache directory. Later scans reuse the cache and fall
 back to it when the network is unreachable. To pre-warm the cache without
 scanning:

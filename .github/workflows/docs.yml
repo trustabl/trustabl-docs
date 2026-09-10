@@ -25,10 +25,10 @@ jobs:
       # Pull the source repos in so gather.py can copy their canonical markdown.
       # These are public repos, so the default GITHUB_TOKEN reads them with no
       # extra secret. If a source repo is ever made private, add a PAT here.
-      - name: Checkout engine (trustabl)
+      - name: Checkout engine (agent-reliability-analyzer)
         uses: actions/checkout@v4
         with:
-          repository: trustabl/trustabl
+          repository: trustabl/agent-reliability-analyzer
           path: _src/trustabl
       - name: Checkout rulebook (trustabl-rulebook)
         uses: actions/checkout@v4

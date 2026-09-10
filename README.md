@@ -10,7 +10,7 @@ of truth for any document it shows:
   formats, CLI reference) live in [`docs/`](docs/) here.
 - **Pulled pages** (architecture, coverage, the rule index and per-rule
   rationale) are copied in at build time from
-  [`trustabl/trustabl`](https://github.com/trustabl/trustabl) and
+  [`trustabl/agent-reliability-analyzer`](https://github.com/trustabl/agent-reliability-analyzer) and
   [`trustabl/trustabl-rulebook`](https://github.com/trustabl/trustabl-rulebook)
   by [`scripts/gather.py`](scripts/gather.py). Those repos remain authoritative;
   the pulled files are gitignored and never committed here.
