@@ -1,8 +1,8 @@
 site_name: Trustabl
 site_description: Static analyzer for agent reliability — discovers the agent/tool inventory in a repo and reports reliability and safety weaknesses.
 site_url: https://trustabl.github.io/trustabl-docs/
-repo_url: https://github.com/trustabl/trustabl
-repo_name: trustabl/trustabl
+repo_url: https://github.com/trustabl/agent-reliability-analyzer
+repo_name: trustabl/agent-reliability-analyzer
 edit_uri: ""
 
 # Most "How it works", "Coverage", and "Rules" pages are pulled in from the

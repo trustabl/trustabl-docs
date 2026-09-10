@@ -96,10 +96,10 @@ trustabl rules pull
 
 `trustabl rules validate [dir]` strict-loads every pack in a local rule-pack
 directory against this build's schema and fails on the first error — the CI gate
-the `trustabl-rules` repo runs on every change.
+the `agent-reliability-rules` repo runs on every change.
 
 ```sh
-trustabl rules validate ./trustabl-rules
+trustabl rules validate ./agent-reliability-rules
 ```
 
 ## `trustabl vulndb pull`
@@ -188,7 +188,7 @@ trustabl llm provider list              # list configured providers
 Prints this build's machine-readable capability descriptor as JSON — the
 rule-schema version and every scope, language, detector category, `applies_to`
 value, and match predicate it can evaluate. This is the contract a rule pack is
-checked against; the `trustabl-rules` CI gate uses it to decide whether a
+checked against; the `agent-reliability-rules` CI gate uses it to decide whether a
 proposed rule would run, be skipped (forward-compatible), or break a release. The
 output is deterministic (sorted).
 

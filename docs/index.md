@@ -49,7 +49,7 @@ Nine agent SDKs, across seven languages:
 It also flags the **shell-invocation** risk surface (`subprocess` / `os.system`
 / `os.popen`) and, opt-in, scans declared dependencies against the
 [OSV](https://osv.dev) database for known CVEs. Detection rules ship in the
-separate [`trustabl-rules`](https://github.com/trustabl/trustabl-rules)
+separate [`agent-reliability-rules`](https://github.com/trustabl/agent-reliability-rules)
 repository — currently **183 rules** resolved at scan time.
 
 The full SDK-by-language matrix is on the [Coverage](coverage.md) page.
@@ -66,5 +66,5 @@ The full SDK-by-language matrix is on the [Coverage](coverage.md) page.
     The **engine** (this scanner) and its **detection rules** live in separate
     repositories. The engine ships with no rules embedded; it resolves them at
     scan time from the
-    [`trustabl-rules`](https://github.com/trustabl/trustabl-rules) repository.
+    [`agent-reliability-rules`](https://github.com/trustabl/agent-reliability-rules) repository.
     That is why a rule can be added or updated without rebuilding the binary.
