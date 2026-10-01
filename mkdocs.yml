@@ -92,5 +92,7 @@ nav:
   - Coverage: coverage.md
   - Output formats: output-formats.md
   - CLI reference: cli-reference.md
+  - Integrations:
+      - AI SDK: integrations/vercel-ai-sdk.md
   - Rules:
       - Rule index: rules/index.md
